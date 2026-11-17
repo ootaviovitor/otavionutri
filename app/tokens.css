@@ -1,0 +1,62 @@
+:root {
+  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
+  --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.25rem; --text-xl: 1.5625rem; --text-2xl: 1.953rem; --text-3xl: 2.441rem;
+  --text-display-s: clamp(2.25rem, 4vw + 0.5rem, 3.75rem); --text-display: clamp(3.5rem, 6.8vw, 5.5rem);
+  --text-section: clamp(2rem, 2.5vw + 1rem, 3.5rem); --text-title: clamp(1.25rem, 0.75vw + 0.875rem, 1.625rem); --text-lead: clamp(1.0625rem, 0.35vw + 0.95rem, 1.1875rem);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-in: cubic-bezier(0.7, 0, 0.84, 0); --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms; --dur-short: 220ms; --dur-long: 420ms;
+  --color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);
+  --container: 1440px; --gutter: 60px; --gap-columns: 32px; --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 176px;
+  --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
+
+  /* Palette — from the client's swatch, plus four tints derived from it. */
+  --color-espresso: #070706;
+  --color-midnight: #292c31;
+  --color-walnut: #2d1f11;
+  --color-caramel: #89612b;
+  --color-sandstone: #ac8b56;
+  --color-golden-beige: #cdad69;
+  --color-butter: #f4e185;
+
+  --color-paper: var(--color-espresso);
+  --color-paper-2: #14100b;
+  --color-paper-3: #1c150d;
+  --color-surface: #0e0b07;
+  --color-ink: #f3ead9;
+  --color-ink-2: #ded0bb;
+  --color-muted: #a2937f;
+  --color-rule: #2a2118;
+  --color-accent: var(--color-golden-beige);
+  --color-accent-strong: var(--color-butter);
+  --color-accent-ink: #14100b;
+  --color-focus: var(--color-butter);
+
+  --font-display: var(--font-instrument), ui-serif, Georgia, serif;
+  --font-body: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: var(--font-body);
+
+  --radius-panel: 28px;
+  --radius-card: 16px;
+  --radius-pill: 999px;
+  --rule-hair: 1px;
+  --shadow-card: 0 24px 60px -32px rgb(0 0 0 / 0.8);
+  --shadow-raise: 0 18px 40px -22px color-mix(in oklab, var(--color-butter) 45%, transparent);
+  --tracking-display: -0.025em;
+  --tracking-body: -0.005em;
+
+  --panel-inset: 16px;
+  --panel-pad-x: 48px;
+  --panel-pad-y: 28px;
+}
+
+@media (max-width: 80rem) {
+  :root { --gutter: 32px; --panel-pad-x: 36px; }
+}
+
+@media (max-width: 60rem) {
+  :root { --gutter: 24px; --section-gap-s: 80px; --section-gap: 96px; --section-gap-l: 120px; --panel-pad-x: 28px; --panel-pad-y: 20px; }
+}
+
+@media (max-width: 40rem) {
+  :root { --gutter: 16px; --section-gap-s: 56px; --section-gap: 72px; --section-gap-l: 96px; --gap-columns: 16px; --panel-inset: 10px; --panel-pad-x: 22px; --panel-pad-y: 16px; --radius-panel: 20px; }
+}

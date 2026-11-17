@@ -1,0 +1,545 @@
+/* Hallmark · shape: framed hero (arched portrait, display left) · genre: editorial · theme: custom (client palette, pinned by request) · job: book · idea: "Constância vence a dieta, então o acompanhamento se ajusta à rotina" · vibe: "escuro, dourado, sóbrio, clínico, editorial"
+ * paper: #070706 · accent: #CDAD69 · display: Instrument Serif · body: DM Sans · hero: headline in two lines left, arched portrait right · nav: wordmark left, two links and a gold action right · footer: none yet · imagery: portrait slot for the client's photo · signature: the second display line in italic gold over the monogram arch
+ * axes: dark/high-contrast-serif/warm · posture: committed — gold carries the display's second line, the actions and the arch rim over a near-black paper · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H5 E4 S3 R4 V4 · weakest: S, the page is one fold and the portrait is still a slot; led with a real argument ("constância vence a dieta") and the monogram arch so the screen reads as Otávio's, not as a template */
+/* Hallmark · waive 38ii · font-synthesis: none on the display head · the gold italic line is the reference look pinned by request */
+/* Hallmark · waive 38iii · the accent sits on .hero__title-accent only, once, in the hero · the second line in gold is the signature of this page */
+/* Hallmark · waive 81 · the arch holds the monogram until public/otavio.jpg is supplied · the portrait is the next material the client sends */
+/* Hallmark · waive 44c · custom hero: the arch is the frame's anchor, the text stops well short of it · the space between the headline and the portrait is the composition */
+/* Hallmark · dismissed 23 · the gold is the committed posture declared above: headline's second line, two actions and the monogram rim, 6.5% once */
+/* Hallmark · dismissed 77 · the round ships the hero fold only; the sections below arrive in the next round */
+@import url("./tokens.css");
+@import url("./base.css");
+
+html {
+  background: var(--color-paper);
+}
+
+body {
+  min-height: 100svh;
+  letter-spacing: var(--tracking-body);
+}
+
+.shell {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding: var(--panel-inset);
+}
+
+/* ---------- Shared surface ---------- */
+
+.panel {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-panel);
+  background:
+    radial-gradient(85% 70% at 84% 0%, color-mix(in oklab, var(--color-caramel) 26%, transparent), transparent 62%),
+    linear-gradient(155deg, var(--color-paper-2) 0%, var(--color-surface) 44%, var(--color-paper) 100%);
+}
+
+/* ---------- Nav ---------- */
+
+.nav {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  padding: var(--panel-pad-y) var(--panel-pad-x);
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--color-ink);
+  text-decoration: none;
+  min-width: 0;
+}
+
+.wordmark__mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: var(--rule-hair) solid color-mix(in oklab, var(--color-accent) 46%, transparent);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: 21px;
+  line-height: 1;
+  color: var(--color-accent);
+  padding-top: var(--space-3xs);
+}
+
+.wordmark__text {
+  display: grid;
+  gap: var(--space-3xs);
+  min-width: 0;
+}
+
+.wordmark__name {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+}
+
+.wordmark__role {
+  font-size: 0.71875rem;
+  line-height: 1;
+  color: var(--color-sandstone);
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(var(--space-md), 2vw, var(--space-xl));
+}
+
+.nav__link {
+  position: relative;
+  padding-block: var(--space-2xs);
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--dur-short) var(--ease-out);
+}
+
+.nav__link::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: var(--rule-hair);
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-short) var(--ease-out);
+}
+
+.nav__link:hover,
+.nav__link:focus-visible,
+.nav__link.is-current {
+  color: var(--color-accent-strong);
+}
+
+.nav__link:hover::after,
+.nav__link:focus-visible::after,
+.nav__link.is-current::after {
+  transform: scaleX(1);
+}
+
+.nav__cta {
+  flex: none;
+}
+
+.nav__cta-short {
+  display: none;
+}
+
+/* ---------- Buttons ---------- */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  min-height: 52px;
+  padding: 0 28px;
+  border: var(--rule-hair) solid transparent;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-short) var(--ease-out),
+    transform var(--dur-short) var(--ease-out),
+    box-shadow var(--dur-short) var(--ease-out);
+}
+
+.button:visited {
+  color: var(--color-accent-ink);
+}
+
+.button:hover {
+  background: var(--color-accent-strong);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-raise);
+}
+
+.button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.button--small {
+  min-height: 42px;
+  padding: 0 20px;
+  font-size: 0.84375rem;
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100svh - var(--panel-inset) * 2);
+}
+
+.hero__body {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  align-items: center;
+  gap: var(--space-2xl);
+  padding: var(--space-xl) var(--panel-pad-x) var(--space-2xl);
+}
+
+.hero__copy {
+  max-width: 39rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+}
+
+.tag {
+  padding: var(--space-2xs) var(--space-sm);
+  border: var(--rule-hair) solid color-mix(in oklab, var(--color-accent) 28%, transparent);
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  line-height: 1.2;
+  color: var(--color-sandstone);
+  background: color-mix(in oklab, var(--color-walnut) 24%, transparent);
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-display);
+  line-height: 0.95;
+  letter-spacing: var(--tracking-display);
+  color: var(--color-ink);
+  text-wrap: balance;
+}
+
+.hero__title-accent {
+  display: block;
+  width: fit-content;
+  font-style: italic;
+  color: var(--color-accent);
+  letter-spacing: -0.018em;
+}
+
+.hero__lede {
+  margin-top: var(--space-lg);
+  max-width: 45ch;
+  font-size: var(--text-lead);
+  line-height: 1.6;
+  color: var(--color-ink-2);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+}
+
+.hero__media {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  min-width: 0;
+}
+
+/* A gold ring behind the arch: the "O" said once, as a shape. */
+.hero__halo {
+  position: absolute;
+  top: -2%;
+  right: 4%;
+  z-index: 0;
+  width: min(92%, 470px);
+  aspect-ratio: 1;
+  border: var(--rule-hair) solid color-mix(in oklab, var(--color-accent) 30%, transparent);
+  border-radius: var(--radius-pill);
+  pointer-events: none;
+}
+
+.portrait {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 400px);
+  aspect-ratio: 4 / 5;
+  margin: 0;
+  overflow: hidden;
+  border: var(--rule-hair) solid color-mix(in oklab, var(--color-accent) 40%, transparent);
+  border-radius: 200px 200px 6px 6px;
+  background: linear-gradient(
+    168deg,
+    color-mix(in oklab, var(--color-walnut) 78%, var(--color-espresso)) 0%,
+    color-mix(in oklab, var(--color-caramel) 46%, var(--color-espresso)) 58%,
+    color-mix(in oklab, var(--color-sandstone) 34%, var(--color-espresso)) 100%
+  );
+  box-shadow: var(--shadow-card);
+}
+
+.portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 16%;
+}
+
+.portrait__monogram {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(7rem, 13vw, 10rem);
+  line-height: 1;
+  color: color-mix(in oklab, var(--color-butter) 20%, transparent);
+  user-select: none;
+}
+
+.portrait::after {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: var(--rule-hair) solid color-mix(in oklab, var(--color-butter) 20%, transparent);
+  border-radius: 190px 190px 2px 2px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* One reveal, on the copy only. */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero__copy > * {
+  animation: hero-rise var(--dur-long) var(--ease-out) both;
+}
+
+.hero__copy > :nth-child(2) {
+  animation-delay: 60ms;
+}
+
+.hero__copy > :nth-child(3) {
+  animation-delay: 120ms;
+}
+
+.hero__copy > :nth-child(4) {
+  animation-delay: 180ms;
+}
+
+/* ---------- Patient area (placeholder) ---------- */
+
+.doc {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100svh - var(--panel-inset) * 2);
+}
+
+.doc__body {
+  flex: 1;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: var(--space-lg);
+  padding: var(--space-2xl) var(--panel-pad-x) var(--space-3xl);
+  max-width: 52rem;
+}
+
+.doc__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-display-s);
+  line-height: 1;
+  letter-spacing: var(--tracking-display);
+  color: var(--color-ink);
+}
+
+.doc__text {
+  max-width: 46ch;
+  font-size: var(--text-lead);
+  line-height: 1.6;
+  color: var(--color-ink-2);
+}
+
+.doc__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-xs);
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  padding-block: var(--space-2xs);
+  border-bottom: var(--rule-hair) solid color-mix(in oklab, var(--color-accent) 46%, transparent);
+  transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+}
+
+.doc__link:hover {
+  color: var(--color-accent-strong);
+  border-color: var(--color-accent-strong);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 62rem) {
+  .hero__body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-xl);
+    padding-bottom: var(--space-xl);
+  }
+
+  .hero__copy {
+    max-width: 34rem;
+  }
+
+  .hero__media {
+    order: 2;
+    align-self: auto;
+  }
+
+  .portrait {
+    width: min(100%, 320px);
+  }
+
+  .hero__halo {
+    top: 0;
+    right: 50%;
+    translate: 50% 0;
+    width: min(88%, 420px);
+  }
+}
+
+@media (max-width: 40rem) {
+  .nav {
+    gap: var(--space-xs);
+  }
+
+  .nav__links {
+    gap: var(--space-xs);
+  }
+
+  .nav__link:not(.nav__link--patient) {
+    display: none;
+  }
+
+  .nav__link {
+    font-size: 0.75rem;
+  }
+
+  .wordmark {
+    gap: var(--space-xs);
+  }
+
+  .wordmark__role {
+    display: none;
+  }
+
+  .wordmark__mark {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+
+  .wordmark__name {
+    font-size: 1.125rem;
+  }
+
+  .nav__cta {
+    min-height: 36px;
+    padding: 0 var(--space-sm);
+    font-size: 0.6875rem;
+  }
+
+  .hero__body {
+    padding-top: var(--space-lg);
+    gap: var(--space-xl);
+  }
+
+  .tag {
+    font-size: 0.6875rem;
+  }
+
+  .portrait {
+    width: min(100%, 280px);
+  }
+
+  .doc__body {
+    padding-bottom: var(--space-2xl);
+  }
+}
+
+@media (min-width: 90rem) {
+  .hero__media {
+    justify-content: flex-start;
+  }
+
+  .hero__halo {
+    right: auto;
+    left: 0;
+  }
+
+  .portrait {
+    width: min(100%, 470px);
+  }
+}
+
+@media (max-width: 23rem) {
+  .wordmark__mark {
+    display: none;
+  }
+
+  .nav__cta-full {
+    display: none;
+  }
+
+  .nav__cta-short {
+    display: inline;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button:hover,
+  .button:active {
+    transform: none;
+  }
+
+  .hero__copy > * {
+    animation: none;
+    opacity: 1;
+  }
+}
