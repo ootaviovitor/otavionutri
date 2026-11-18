@@ -1,17 +1,30 @@
-/* Hallmark · shape: single-frame splash · genre: editorial · theme: custom (client palette, pinned by request) · job: book · idea: "a pré-consulta começa com uma conversa, não com um formulário" · vibe: "sóbrio, escuro, direto, atlético"
- * paper: #070706 · accent: #CDAD69 · display: DM Sans · body: DM Sans · hero: the corridor photograph fills the screen, one action centred · nav: none, by request · footer: none, by request · imagery: the client's corridor photograph · signature: the runner's orange rail behind a single gold action
- * axes: dark/grotesk-sans/warm · posture: committed — one gold action on a near-black photograph · contrast: pass · fold: pass · v2.0.0 */
-/* Hallmark · pre-emit critique: P4 H4 E5 S3 R5 V4 · weakest: S, the screen is one photograph and one action; the photograph carries the meaning and the gold action is the only claim on it */
-/* Hallmark · waivers: § 3 single section, the client asked for exactly one screen and one action, so the six-to-nine-section strip does not apply · § 5 the supplied frame carries template placeholder type in its left third, sunk below one luminance step by the directional veil rather than edited, because the original asset was supplied and is not ours to rewrite */
+/* Hallmark · shape: single-frame splash · genre: editorial · theme: custom (client palette, pinned by request) · job: book · idea: "o ambiente está em manutenção, e a primeira conversa já pode começar" · vibe: "claro, calmo, atlético"
+ * paper: #EAE8E4 · accent: #CC8C44 · display: DM Sans · body: DM Sans · hero: a marca, a arte dos dois corredores, uma frase e uma ação, tudo centrado · nav: none, by request · footer: a single credit line, by request · imagery: the client's runners artwork and the client's logo · signature: the two runners mid-stride on paper, one amber action beneath
+ * axes: light/grotesk-sans/warm · posture: committed — one artwork, one sentence, one action on a spare paper field · contrast: pass · fold: pass · v3.1.0 */
+/* Hallmark · pre-emit critique: P4 H4 E5 S3 R5 V4 · weakest: S, the screen is one supplied artwork, one sentence and one action; the artwork carries everything and the amber action is the only claim on it */
+/* Hallmark · waivers: § 3 single section, the client asked for exactly one screen and one action, so the six-to-nine-section strip does not apply · § 5 the headline lives inside the client's artwork, so it ships as a visually hidden h1 instead of type set over the image, which the client ruled out · § 6 the air between the action and the fold is the approved design's own breathing room, the composition is centred and the credit line sits in that space */
 @import url("./tokens.css");
 @import url("./base.css");
 
+/* This screen sits on the client's paper rather than the dark surface the
+   rest of the token set assumes. Only this page is light. */
+:root {
+  --stage-paper: #eae8e4;
+  --stage-ink-soft: #514b42;
+  --stage-accent: #cc8c44;
+  --stage-accent-soft: #d99a52;
+  --stage-lift: 0 18px 32px -20px color-mix(in oklab, var(--color-accent-ink) 50%, transparent);
+  --stage-lift-hover: 0 22px 36px -20px color-mix(in oklab, var(--color-accent-ink) 45%, transparent);
+}
+
 html {
-  background: var(--color-paper);
+  background: var(--stage-paper);
 }
 
 body {
   min-height: 100svh;
+  background: var(--stage-paper);
+  color: var(--stage-ink);
   letter-spacing: var(--tracking-body);
 }
 
@@ -20,100 +33,98 @@ body {
   display: grid;
   place-items: center;
   min-height: 100svh;
-  padding: var(--space-lg);
-  overflow: hidden;
+  padding-block: var(--space-2xl) var(--space-3xl);
+  padding-inline: var(--space-lg);
   isolation: isolate;
 }
 
-.stage__image {
-  z-index: 0;
-  object-fit: cover;
-  object-position: 72% 0%;
-}
-
-/* The photograph's left half is a flat grey wash carrying placeholder type.
-   The veil sinks that half into the page's own black so the runner and the
-   orange rail are the only things that surface. */
-.stage__veil {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background:
-    linear-gradient(
-      92deg,
-      color-mix(in oklab, var(--color-paper) 96%, transparent) 0%,
-      color-mix(in oklab, var(--color-paper) 95%, transparent) 46%,
-      color-mix(in oklab, var(--color-paper) 90%, transparent) 56%,
-      color-mix(in oklab, var(--color-paper) 70%, transparent) 64%,
-      color-mix(in oklab, var(--color-paper) 40%, transparent) 70%,
-      color-mix(in oklab, var(--color-paper) 14%, transparent) 78%,
-      color-mix(in oklab, var(--color-paper) 3%, transparent) 88%,
-      transparent 100%
-    ),
-    linear-gradient(
-      180deg,
-      transparent 58%,
-      color-mix(in oklab, var(--color-paper) 40%, transparent) 100%
-    );
-}
-
-.stage__content {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  justify-items: center;
+.stage__stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
   width: 100%;
+}
+
+.brand {
+  width: clamp(126px, 12vw, 220px);
+  height: auto;
+  animation: rise var(--dur-long) var(--ease-out) both;
+}
+
+.art {
+  width: clamp(296px, 27vw, 520px);
+  height: auto;
+  animation: rise var(--dur-long) var(--ease-out) 70ms both;
+}
+
+.note {
+  max-width: clamp(280px, 24vw, 440px);
+  margin-block-start: var(--space-2xs);
+  color: var(--stage-ink-soft);
+  font-size: clamp(0.9375rem, 0.35vw + 0.9rem, 1.125rem);
+  line-height: 1.55;
+  text-align: center;
+  text-wrap: balance;
+  animation: rise var(--dur-long) var(--ease-out) 130ms both;
 }
 
 .cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-sm);
-  min-height: 52px;
-  padding: var(--space-xs) var(--space-lg) var(--space-xs) var(--space-sm);
+  min-height: 50px;
+  padding: var(--space-xs) var(--space-xl);
   border-radius: var(--radius-pill);
-  background: var(--color-accent);
+  background: var(--stage-accent);
   color: var(--color-accent-ink);
-  font-size: clamp(0.9375rem, 2.6vw, 1.0625rem);
-  font-weight: 600;
+  font-size: clamp(0.9375rem, 0.5vw + 0.85rem, 1.0625rem);
+  font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.01em;
-  text-align: left;
   white-space: nowrap;
   text-decoration: none;
-  box-shadow: 0 28px 60px -26px color-mix(in oklab, var(--color-paper) 78%, transparent);
+  box-shadow: var(--stage-lift);
   transition:
     background-color var(--dur-short) var(--ease-out),
     transform var(--dur-short) var(--ease-out),
     box-shadow var(--dur-short) var(--ease-out);
-  animation: cta-in var(--dur-long) var(--ease-out) both;
+  animation: rise var(--dur-long) var(--ease-out) 190ms both;
 }
 
 .cta:visited {
   color: var(--color-accent-ink);
 }
 
-.cta__icon {
-  display: grid;
-  place-items: center;
-  flex: none;
-}
-
 .cta:hover {
-  background: var(--color-accent-strong);
+  background: var(--stage-accent-soft);
   transform: translateY(-2px);
-  box-shadow: 0 30px 54px -22px color-mix(in oklab, var(--color-butter) 42%, transparent);
+  box-shadow: var(--stage-lift-hover);
 }
 
 .cta:active {
   transform: translateY(0);
 }
 
-@keyframes cta-in {
+.cta:focus-visible {
+  outline-color: var(--color-accent-ink);
+}
+
+.stage__foot {
+  position: absolute;
+  inset-inline: var(--space-lg);
+  bottom: clamp(20px, 3.4vh, 34px);
+  color: var(--stage-ink-soft);
+  font-size: 0.75rem;
+  letter-spacing: 0.01em;
+  text-align: center;
+  text-wrap: balance;
+}
+
+@keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -121,38 +132,26 @@ body {
   }
 }
 
-@media (max-width: 40rem) {
+@media (max-width: 60rem) {
   .stage {
-    place-items: end center;
-    padding-block-end: clamp(64px, 14svh, 128px);
+    padding-block: var(--space-lg) var(--space-2xl);
   }
 
-  /* Portrait shows only the runner's side of the frame, past the placeholder
-     type, so the veil here is just a floor for the action. */
-  .stage__image {
-    object-position: 92% 0%;
+  .stage__stack {
+    gap: var(--space-md);
   }
 
-  .stage__veil {
-    background:
-      linear-gradient(
-        180deg,
-        transparent 46%,
-        color-mix(in oklab, var(--color-paper) 34%, transparent) 72%,
-        color-mix(in oklab, var(--color-paper) 74%, transparent) 100%
-      ),
-      linear-gradient(
-        90deg,
-        color-mix(in oklab, var(--color-paper) 70%, transparent) 0%,
-        color-mix(in oklab, var(--color-paper) 28%, transparent) 12%,
-        transparent 30%
-      );
+  .brand {
+    width: clamp(112px, 26vw, 148px);
   }
 
-  .cta {
-    min-height: 48px;
-    padding: var(--space-xs) var(--space-md) var(--space-xs) var(--space-xs);
-    gap: var(--space-xs);
+  .art {
+    width: min(80vw, 360px);
+  }
+
+  .note {
+    max-width: 24rem;
+    font-size: 0.9375rem;
   }
 }
 
@@ -161,13 +160,60 @@ body {
     padding-inline: var(--space-md);
   }
 
+  .stage__foot {
+    inset-inline: var(--space-md);
+    font-size: 0.6875rem;
+  }
+
   .cta {
-    padding: var(--space-xs) var(--space-sm) var(--space-xs) var(--space-xs);
+    padding: var(--space-xs) var(--space-lg);
     font-size: 0.875rem;
   }
 }
 
+/* Landscape phones and shallow laptop windows can't hold the composition at
+   full size. The stack tightens and the credit line joins the flow instead of
+   hanging off the bottom of a stage taller than the viewport. */
+@media (max-height: 640px) {
+  .stage {
+    padding-block: var(--space-md) var(--space-lg);
+  }
+
+  .stage__stack {
+    gap: var(--space-xs);
+  }
+
+  .brand {
+    width: clamp(84px, 12vh, 120px);
+  }
+
+  .art {
+    width: min(52vh, 320px);
+  }
+
+  .note {
+    max-width: 30rem;
+    margin-block-start: 0;
+    font-size: var(--text-sm);
+    line-height: 1.45;
+  }
+
+  .cta {
+    min-height: 44px;
+    padding: var(--space-2xs) var(--space-lg);
+    font-size: var(--text-sm);
+  }
+
+  .stage__foot {
+    position: static;
+    margin-block-start: var(--space-sm);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .brand,
+  .art,
+  .note,
   .cta {
     animation: none;
   }

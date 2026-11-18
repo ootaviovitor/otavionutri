@@ -9,28 +9,29 @@ const sans = DM_Sans({
 });
 
 const siteUrl = "https://www.otavionutri.com.br";
+const title = "Otávio Costa Garcia · Nutricionista Esportivo";
 const description =
-  "Comece sua pré-consulta gratuita com o nutricionista Otávio por um chat rápido e sem compromisso.";
+  "O site está em manutenção. Enquanto isso, fale sobre seus objetivos com o nutricionista Otávio Costa Garcia e faça sua pré-consulta gratuita.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Pré-consulta gratuita · Otávio Nutrição",
+  title,
   description,
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "pt_BR",
     url: siteUrl,
-    siteName: "Otávio Nutrição",
-    title: "Pré-consulta gratuita · Otávio Nutrição",
+    siteName: "Otávio Costa Garcia",
+    title,
     description,
   },
   robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#070706",
-  colorScheme: "dark",
+  themeColor: "#eae8e4",
+  colorScheme: "light",
 };
 
 export default function RootLayout({
