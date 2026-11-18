@@ -2,15 +2,14 @@
 
 Página única do nutricionista Otávio Costa Garcia — **www.otavionutri.com.br**.
 
-Uma tela só, sobre papel claro: a logo centralizada, a arte dos dois corredores, uma frase, o botão
-**"Quero uma pré-consulta gratuita"** — que abre o chat de pré-consulta no Typebot — e uma linha de
-crédito no rodapé. Sem navbar, sem formulário, sem rolagem em pé.
+Página de manutenção com a marca, o aviso **"Site em manutenção"**,
+a arte dos corredores e o botão **"Quero uma pré-consulta gratuita"**, que abre o chat no Typebot.
 
 Stack: Next.js 16 (App Router), React 19, TypeScript e CSS puro com tokens.
 
 ## Rodar localmente
 
-Requer Node 20 ou mais recente.
+Requer Node 20.9.0 ou mais recente.
 
 ```bash
 npm install
@@ -26,42 +25,42 @@ Outros comandos: `npm run build` e `npm start`.
 ```
 app/
   page.tsx                      ← a tela inteira (logo, arte, frase, botão)
-  layout.tsx                    ← fonte, metadados, idioma, themeColor
-  globals.css                   ← estilos da tela (papel claro, pilha centralizada)
-  tokens.css                    ← cores, tipografia, espaçamentos
-  base.css                      ← reset, foco visível, movimento reduzido
+  layout.tsx                    ← fonte, metadados, idioma e tema inicial
+  theme-picker.tsx              ← seletor de tema no cabeçalho
+  globals.css                   ← composição responsiva, foco e interação do botão
+  tokens.css                    ← paleta, texto e movimento da tela
+  base.css                      ← estilos básicos
   icon.svg                      ← favicon
 lib/site.ts                     ← nome e link do chat de pré-consulta
 public/images/
-  logo-otavio-costa-garcia.png  ← logo (2001 × 902, laranja sobre transparente)
-  dois-corredores-em-movimento.png ← arte com a frase (1536 × 1024, fundo transparente)
+  simbolo-nutri.png             ← símbolo em uso (2001 × 1601, fundo transparente)
+  logo-otavio-costa-garcia.png   ← logotipo completo original
+  corredores-pista.webp         ← arte em uso (1024 × 1024, fundo transparente)
+  dois-corredores-em-movimento.png ← arte original com a frase
 ```
 
 ## O que trocar
 
 1. **Link do chat** — em `lib/site.ts`, `preConsultationUrl`. Hoje aponta para
    `https://typebot.co/pre-consulta-drotavio`.
-2. **Arte** — substitua `public/images/dois-corredores-em-movimento.png` mantendo o caminho e as
-   proporções (ou atualize `width`/`height` em `app/page.tsx`). O arquivo é um recorte com fundo
-   transparente: a frase "Estamos melhorando este ambiente" faz parte da imagem, por isso não há
-   texto solto por cima dela. O `<h1>` existe só para leitores de tela e buscadores.
-3. **Logo** — mesma ideia: `public/images/logo-otavio-costa-garcia.png`, com fundo transparente.
-4. **Textos** — a frase de apoio e o rótulo do botão estão em `app/page.tsx`; o crédito do rodapé
-   também. O título e a descrição para busca/redes ficam em `app/layout.tsx`.
-5. **Cores** — a paleta do projeto está em `app/tokens.css`. Esta tela usa um papel claro próprio
-   (`--stage-*` no topo de `app/globals.css`): fundo `#EAE8E4`, tinta `#14100B`, laranja da marca
-   `#CC8C44`.
+2. **Arte** — a versão em uso está em `public/images/corredores-pista.webp`.
+   Ao substituí-la, atualize o caminho e as dimensões em `app/page.tsx` conforme necessário.
+3. **Símbolo** — está em `public/images/simbolo-nutri.png`. Ao substituir a imagem, atualize
+   o caminho e as dimensões em `app/page.tsx` conforme necessário.
+4. **Textos** — o aviso, a frase de apoio, o botão e o rodapé estão em `app/page.tsx`.
+   O título e a descrição para busca e redes ficam em `app/layout.tsx`.
+5. **Cores** — a paleta está em `app/tokens.css`. Fundo `#EAE8E4`, tinta `#14100B`
+   e laranja da marca `#CC8C44`.
 
 ## Como a tela se comporta
 
-- **Desktop:** pilha centralizada — logo, arte, frase, botão — com o crédito no rodapé da tela.
-- **Tablet e celular:** a arte encolhe para 80% da largura (até 360 px) e a frase ganha largura menor
-  para manter poucas linhas.
-- **Celular na horizontal / janelas baixas** (`max-height: 640px`): a pilha compacta, a arte usa a
-  altura disponível e o crédito entra no fluxo, para nada ficar cortado.
-- O botão cabe em uma linha de 320 px a 2560 px, o texto do botão é escuro sobre o laranja (contraste
-  6,4:1; branco sobre esse laranja ficaria em 2,6:1), o foco do teclado é visível e quem pede
-  `prefers-reduced-motion` não vê animação de entrada.
+- A partir de 48 rem, o texto e a arte ficam lado a lado.
+- Em telas estreitas, o aviso e o link aparecem antes da arte. O rótulo do botão pode quebrar
+  em linhas e o crédito acompanha a altura do conteúdo.
+- O seletor no cabeçalho usa os ícones de monitor, sol e lua para **Sistema**, **Claro** e
+  **Escuro**. Sistema acompanha a preferência do dispositivo. A escolha manual é salva no navegador.
+- O botão é preto no claro e amarelo no escuro. No escuro, um reflexo cruza a superfície
+  ao interagir. Com movimento reduzido, a resposta aparece na cor e no foco.
 
 ## Publicar no GitHub
 

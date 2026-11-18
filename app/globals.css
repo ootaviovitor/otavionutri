@@ -1,225 +1,352 @@
-/* Hallmark · shape: single-frame splash · genre: editorial · theme: custom (client palette, pinned by request) · job: book · idea: "o ambiente está em manutenção, e a primeira conversa já pode começar" · vibe: "claro, calmo, atlético"
- * paper: #EAE8E4 · accent: #CC8C44 · display: DM Sans · body: DM Sans · hero: a marca, a arte dos dois corredores, uma frase e uma ação, tudo centrado · nav: none, by request · footer: a single credit line, by request · imagery: the client's runners artwork and the client's logo · signature: the two runners mid-stride on paper, one amber action beneath
- * axes: light/grotesk-sans/warm · posture: committed — one artwork, one sentence, one action on a spare paper field · contrast: pass · fold: pass · v3.1.0 */
-/* Hallmark · pre-emit critique: P4 H4 E5 S3 R5 V4 · weakest: S, the screen is one supplied artwork, one sentence and one action; the artwork carries everything and the amber action is the only claim on it */
-/* Hallmark · waivers: § 3 single section, the client asked for exactly one screen and one action, so the six-to-nine-section strip does not apply · § 5 the headline lives inside the client's artwork, so it ships as a visually hidden h1 instead of type set over the image, which the client ruled out · § 6 the air between the action and the fold is the approved design's own breathing room, the composition is centred and the credit line sits in that space */
 @import url("./tokens.css");
 @import url("./base.css");
 
-/* This screen sits on the client's paper rather than the dark surface the
-   rest of the token set assumes. Only this page is light. */
 :root {
-  --stage-paper: #eae8e4;
-  --stage-ink-soft: #514b42;
-  --stage-accent: #cc8c44;
-  --stage-accent-soft: #d99a52;
-  --stage-lift: 0 18px 32px -20px color-mix(in oklab, var(--color-accent-ink) 50%, transparent);
-  --stage-lift-hover: 0 22px 36px -20px color-mix(in oklab, var(--color-accent-ink) 45%, transparent);
-}
-
-html {
+  color: var(--stage-ink);
   background: var(--stage-paper);
+  scrollbar-color: var(--stage-ink-soft) var(--stage-paper);
 }
 
 body {
-  min-height: 100svh;
-  background: var(--stage-paper);
-  color: var(--stage-ink);
-  letter-spacing: var(--tracking-body);
+  font-family: var(--font-body);
+}
+
+::selection {
+  color: var(--stage-selection-ink);
+  background: var(--stage-selection);
 }
 
 .stage {
-  position: relative;
   display: grid;
-  place-items: center;
+  grid-template-rows: auto 1fr auto;
+  width: min(72rem, calc(100% - 2 * clamp(20px, 5vw, 72px)));
   min-height: 100svh;
-  padding-block: var(--space-2xl) var(--space-3xl);
-  padding-inline: var(--space-lg);
-  isolation: isolate;
+  margin-inline: auto;
 }
 
-.stage__stack {
+.stage__header {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-lg);
-  width: 100%;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block: 24px 18px;
+  border-block-end: 1px solid var(--stage-rule);
 }
 
 .brand {
-  width: clamp(126px, 12vw, 220px);
+  display: block;
+  width: 56px;
+  max-width: 100%;
   height: auto;
-  animation: rise var(--dur-long) var(--ease-out) both;
 }
 
-.art {
-  width: clamp(296px, 27vw, 520px);
-  height: auto;
-  animation: rise var(--dur-long) var(--ease-out) 70ms both;
+.theme-picker:not([hidden]) {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: 999px;
+  background: var(--theme-control-surface);
+}
+
+.theme-picker__option {
+  position: relative;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  color: var(--theme-control-ink);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.theme-picker__option input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.theme-picker__option svg {
+  width: 34px;
+  height: 34px;
+  padding: 7px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.theme-picker__option input:is(:checked, :active) + svg {
+  background: var(--theme-control-active);
+  color: var(--stage-ink);
+}
+
+@media (hover: hover) {
+  .theme-picker__option:hover svg {
+    color: var(--stage-ink);
+  }
+}
+
+.theme-picker__option input:focus-visible + svg,
+.cta:focus-visible {
+  outline: 2px solid var(--stage-ink);
+  outline-offset: 3px;
+}
+
+@media (forced-colors: active) {
+  .theme-picker__option input:checked + svg {
+    border: 1px solid Highlight;
+  }
+}
+
+.stage__main {
+  display: grid;
+  align-content: center;
+  gap: 24px;
+  padding-block: clamp(24px, 5vw, 64px);
+}
+
+.stage__copy {
+  min-width: 0;
+}
+
+.stage__copy h1 {
+  font-size: clamp(2.5rem, 8vw + 0.94rem, 5rem);
+  font-weight: 750;
+  line-height: 0.99;
+  letter-spacing: -0.04em;
+  overflow-wrap: anywhere;
 }
 
 .note {
-  max-width: clamp(280px, 24vw, 440px);
-  margin-block-start: var(--space-2xs);
+  max-width: 35ch;
+  margin-top: clamp(16px, 2.5vw, 26px);
   color: var(--stage-ink-soft);
-  font-size: clamp(0.9375rem, 0.35vw + 0.9rem, 1.125rem);
+  font-size: clamp(1rem, 0.875rem + 0.42vw, 1.25rem);
   line-height: 1.55;
-  text-align: center;
-  text-wrap: balance;
-  animation: rise var(--dur-long) var(--ease-out) 130ms both;
 }
 
 .cta {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  min-height: 50px;
-  padding: var(--space-xs) var(--space-xl);
-  border-radius: var(--radius-pill);
-  background: var(--stage-accent);
-  color: var(--color-accent-ink);
-  font-size: clamp(0.9375rem, 0.5vw + 0.85rem, 1.0625rem);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-  white-space: nowrap;
+  justify-content: space-between;
+  gap: clamp(10px, 3vw, 28px);
+  min-height: 60px;
+  max-width: 100%;
+  margin-top: clamp(22px, 3vw, 32px);
+  padding: 8px 8px 8px clamp(14px, 2vw, 20px);
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid transparent;
+  border-radius: 15px;
+  background:
+    linear-gradient(108deg, var(--cta-start), var(--cta-end) 88%) padding-box,
+    linear-gradient(155deg, var(--cta-edge-light), var(--cta-edge-dark) 78%) border-box;
+  color: var(--cta-ink);
+  box-shadow: 0 10px 24px -10px var(--cta-shadow);
+  font-size: 1rem;
+  font-weight: 750;
+  line-height: 1.25;
   text-decoration: none;
-  box-shadow: var(--stage-lift);
-  transition:
-    background-color var(--dur-short) var(--ease-out),
-    transform var(--dur-short) var(--ease-out),
-    box-shadow var(--dur-short) var(--ease-out);
-  animation: rise var(--dur-long) var(--ease-out) 190ms both;
 }
 
-.cta:visited {
-  color: var(--color-accent-ink);
+.cta::before,
+.cta::after {
+  position: absolute;
+  content: var(--cta-reflection-content, none);
+  pointer-events: none;
 }
 
-.cta:hover {
-  background: var(--stage-accent-soft);
-  transform: translateY(-2px);
-  box-shadow: var(--stage-lift-hover);
+.cta::before {
+  inset: 0;
+  background: radial-gradient(ellipse 62px 6px at 27% 0%, var(--cta-edge-reflection), transparent);
+  opacity: 0.88;
+}
+
+.cta::after {
+  inset: 0 auto 0 0;
+  width: 66%;
+  background:
+    radial-gradient(ellipse 44px 9px at 54% 0%, var(--cta-edge-reflection), transparent),
+    linear-gradient(
+      108deg,
+      transparent 25%,
+      var(--cta-reflection) 46%,
+      var(--cta-reflection) 49%,
+      transparent 70%
+    );
+  transform: translateX(-104%);
+}
+
+.cta__label,
+.cta__icon {
+  position: relative;
+  z-index: 1;
+}
+
+.cta__label {
+  overflow-wrap: anywhere;
+}
+
+.cta__icon {
+  display: grid;
+  flex: 0 0 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--cta-icon-fill), var(--cta-ink) var(--cta-icon-emphasis, 0%));
+}
+
+.cta__arrow {
+  position: relative;
+  width: 16px;
+  height: 14px;
+}
+
+.cta__arrow::before,
+.cta__arrow::after {
+  position: absolute;
+  top: 50%;
+  content: "";
+}
+
+.cta__arrow::before {
+  inset-inline: 0 1px;
+  border-top: 2px solid currentColor;
+  transform: translateY(-50%);
+}
+
+.cta__arrow::after {
+  right: 1px;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.cta:is(:focus-visible, :active) {
+  --cta-sweep: cta-sweep;
+  --cta-arrow-shift: 3px;
+  --cta-icon-emphasis: 9%;
 }
 
 .cta:active {
-  transform: translateY(0);
+  box-shadow: none;
 }
 
-.cta:focus-visible {
-  outline-color: var(--color-accent-ink);
+@media (hover: hover) {
+  .cta:hover {
+    --cta-sweep: cta-sweep;
+    --cta-arrow-shift: 3px;
+    --cta-icon-emphasis: 9%;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cta {
+    transition: transform var(--dur-short) var(--ease-out);
+  }
+
+  .cta:active {
+    transform: translateY(2px);
+  }
+
+  .cta::after {
+    animation: var(--cta-sweep, none) 760ms cubic-bezier(0.3, 0.16, 0.28, 1) both;
+  }
+
+  .cta__arrow {
+    transform: translateX(var(--cta-arrow-shift, 0));
+    transition: transform var(--dur-short) var(--ease-out);
+  }
+}
+
+@keyframes cta-sweep {
+  to {
+    transform: translateX(159%);
+  }
+}
+
+@media (forced-colors: active) {
+  .cta {
+    border-color: LinkText;
+    color: LinkText;
+  }
+
+  .cta::before,
+  .cta::after {
+    display: none;
+  }
+}
+
+.art {
+  display: block;
+  width: min(100%, 26rem);
+  height: auto;
+  justify-self: center;
 }
 
 .stage__foot {
-  position: absolute;
-  inset-inline: var(--space-lg);
-  bottom: clamp(20px, 3.4vh, 34px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 20px;
+  padding-block: 14px 20px;
+  border-block-start: 1px solid var(--stage-rule);
   color: var(--stage-ink-soft);
-  font-size: 0.75rem;
-  letter-spacing: 0.01em;
-  text-align: center;
-  text-wrap: balance;
+  font-size: var(--text-xs);
+  line-height: 1.45;
 }
 
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@media (max-width: 60rem) {
-  .stage {
-    padding-block: var(--space-lg) var(--space-2xl);
-  }
-
-  .stage__stack {
-    gap: var(--space-md);
+@media (min-width: 48rem) {
+  .stage__header {
+    padding-block: clamp(20px, 4vh, 42px) clamp(12px, 2vh, 20px);
   }
 
   .brand {
-    width: clamp(112px, 26vw, 148px);
+    width: 64px;
+  }
+
+  .stage__main {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+    align-items: center;
+    gap: clamp(24px, 4vw, 64px);
+    padding-block: clamp(24px, 5vh, 64px);
+  }
+
+  .stage__copy h1 {
+    font-size: clamp(2.75rem, 6.25vw, 5.5rem);
   }
 
   .art {
-    width: min(80vw, 360px);
+    width: 100%;
+  }
+}
+
+@media (min-width: 48rem) and (max-height: 35rem) {
+  .stage__header {
+    padding-block: 14px 12px;
+  }
+
+  .stage__main {
+    padding-block: 16px;
+  }
+
+  .stage__copy h1 {
+    font-size: clamp(2.75rem, 5vw, 4.5rem);
   }
 
   .note {
-    max-width: 24rem;
-    font-size: 0.9375rem;
-  }
-}
-
-@media (max-width: 23.5rem) {
-  .stage {
-    padding-inline: var(--space-md);
-  }
-
-  .stage__foot {
-    inset-inline: var(--space-md);
-    font-size: 0.6875rem;
+    margin-top: 12px;
   }
 
   .cta {
-    padding: var(--space-xs) var(--space-lg);
-    font-size: 0.875rem;
-  }
-}
-
-/* Landscape phones and shallow laptop windows can't hold the composition at
-   full size. The stack tightens and the credit line joins the flow instead of
-   hanging off the bottom of a stage taller than the viewport. */
-@media (max-height: 640px) {
-  .stage {
-    padding-block: var(--space-md) var(--space-lg);
-  }
-
-  .stage__stack {
-    gap: var(--space-xs);
-  }
-
-  .brand {
-    width: clamp(84px, 12vh, 120px);
+    margin-top: 20px;
   }
 
   .art {
-    width: min(52vh, 320px);
-  }
-
-  .note {
-    max-width: 30rem;
-    margin-block-start: 0;
-    font-size: var(--text-sm);
-    line-height: 1.45;
-  }
-
-  .cta {
-    min-height: 44px;
-    padding: var(--space-2xs) var(--space-lg);
-    font-size: var(--text-sm);
-  }
-
-  .stage__foot {
-    position: static;
-    margin-block-start: var(--space-sm);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .brand,
-  .art,
-  .note,
-  .cta {
-    animation: none;
-  }
-
-  .cta:hover,
-  .cta:active {
-    transform: none;
+    width: min(100%, 64svh);
   }
 }
