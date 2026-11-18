@@ -1,14 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans, Instrument_Serif } from "next/font/google";
+import { DM_Sans } from "next/font/google";
 import "./globals.css";
-
-const instrument = Instrument_Serif({
-  weight: "400",
-  style: ["normal", "italic"],
-  subsets: ["latin"],
-  variable: "--font-instrument",
-  display: "swap",
-});
 
 const sans = DM_Sans({
   subsets: ["latin"],
@@ -18,14 +10,11 @@ const sans = DM_Sans({
 
 const siteUrl = "https://www.otavionutri.com.br";
 const description =
-  "Acompanhamento nutricional individual, com plano alimentar ajustado à sua rotina e a cada consulta.";
+  "Comece sua pré-consulta gratuita com o nutricionista Otávio por um chat rápido e sem compromisso.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: {
-    default: "Otávio Nutrição — Constância vence a dieta",
-    template: "%s · Otávio Nutrição",
-  },
+  title: "Pré-consulta gratuita · Otávio Nutrição",
   description,
   alternates: { canonical: "/" },
   openGraph: {
@@ -33,7 +22,7 @@ export const metadata: Metadata = {
     locale: "pt_BR",
     url: siteUrl,
     siteName: "Otávio Nutrição",
-    title: "Otávio Nutrição — Constância vence a dieta",
+    title: "Pré-consulta gratuita · Otávio Nutrição",
     description,
   },
   robots: { index: true, follow: true },
@@ -48,7 +37,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${instrument.variable} ${sans.variable}`}>
+    <html lang="pt-BR" className={sans.variable}>
       <body>{children}</body>
     </html>
   );

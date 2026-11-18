@@ -1,44 +1,53 @@
-import Link from "next/link";
-import { Portrait } from "./_components/portrait";
-import { SiteNav } from "./_components/site-nav";
+import Image from "next/image";
 import { site } from "@/lib/site";
+
+function ChatIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        d="M12 3.6c-4.6 0-8.4 3.2-8.4 7.2 0 1.4.5 2.8 1.4 3.9L3.6 20l4.9-1.9c1.1.5 2.3.8 3.5.8 4.6 0 8.4-3.2 8.4-7.2S16.6 3.6 12 3.6Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <circle cx="8.6" cy="10.9" r="1.15" fill="currentColor" />
+      <circle cx="12" cy="10.9" r="1.15" fill="currentColor" />
+      <circle cx="15.4" cy="10.9" r="1.15" fill="currentColor" />
+    </svg>
+  );
+}
 
 export default function HomePage() {
   return (
-    <main>
-      <div className="shell">
-        <section className="panel hero" id="agendar">
-          <SiteNav current="inicio" />
+    <main className="stage">
+      <Image
+        className="stage__image"
+        src="/images/corredor-linhas-de-pista.png"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+      />
+      <div className="stage__veil" aria-hidden="true" />
 
-          <div className="hero__body">
-            <div className="hero__copy">
-              <p className="tags">
-                <span className="tag">Nutrição clínica</span>
-                <span className="tag">Acompanhamento individual</span>
-              </p>
+      <div className="stage__content">
+        <h1 className="visually-hidden">
+          Pré-consulta gratuita com o nutricionista Otávio
+        </h1>
 
-              <h1 className="hero__title">
-                Constância
-                <span className="hero__title-accent">vence a dieta.</span>
-              </h1>
-
-              <p className="hero__lede">
-                Plano alimentar individual, ajustado à sua rotina a cada consulta.
-              </p>
-
-              <div className="hero__actions">
-                <Link className="button" href={site.bookingUrl}>
-                  Agendar minha consulta
-                </Link>
-              </div>
-            </div>
-
-            <div className="hero__media">
-              <span className="hero__halo" aria-hidden="true" />
-              <Portrait />
-            </div>
-          </div>
-        </section>
+        <a className="cta" href={site.preConsultationUrl}>
+          <span className="cta__icon">
+            <ChatIcon />
+          </span>
+          <span>Quero uma pré-consulta gratuita</span>
+        </a>
       </div>
     </main>
   );
